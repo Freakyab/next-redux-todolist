@@ -17,20 +17,20 @@ const todoReducer = createSlice({
   reducers: {
     addTodo: (state, action: PayloadAction<todoPayload>) => {
       state.todos = [...state.todos, action.payload];
-      JSON.stringify(localStorage.setItem("todos", JSON.stringify(state.todos)));
+      localStorage.setItem("todos", JSON.stringify(state.todos));
     },
     removeTodo: (state, action: PayloadAction<number>) => {
       state.todos = state.todos.filter((todo) => todo.id !== action.payload);
-      JSON.stringify(localStorage.setItem("todos", JSON.stringify(state.todos)));
+      localStorage.setItem("todos", JSON.stringify(state.todos));
     },
     editTodo: (state, action: PayloadAction<todoPayload>) => {
       state.todos = state.todos.map((todo) =>
-        todo.id === action.payload.id ? { ...todo, text : action.payload.text, edit : false } : todo
+        todo.id === action.payload.id ? { ...todo, text: action.payload.text, edit: false } : todo
       );
     },
-    completeTodo : (state, action: PayloadAction<number>) => {
+    completeTodo: (state, action: PayloadAction<number>) => {
       state.todos = state.todos.map((todo) =>
-        todo.id === action.payload ? { ...todo, complete : !todo.complete } : todo
+        todo.id === action.payload ? { ...todo, complete: !todo.complete } : todo
       );
     },
   },
