@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type todoPayload = {
+export type  todoPayload = {
   id: number;
   text: string;
   complete?: boolean;
@@ -8,7 +8,7 @@ type todoPayload = {
 const initialState: {
   todos: todoPayload[];
 } = {
-  todos: JSON.parse(localStorage.getItem("todos") || "[]"),
+  todos:  [],
 };
 
 const todoReducer = createSlice({
@@ -17,21 +17,26 @@ const todoReducer = createSlice({
   reducers: {
     addTodo: (state, action: PayloadAction<todoPayload>) => {
       state.todos = [...state.todos, action.payload];
-      localStorage.setItem("todos", JSON.stringify(state.todos));
     },
     removeTodo: (state, action: PayloadAction<number>) => {
       state.todos = state.todos.filter((todo) => todo.id !== action.payload);
-      localStorage.setItem("todos", JSON.stringify(state.todos));
     },
     editTodo: (state, action: PayloadAction<todoPayload>) => {
       state.todos = state.todos.map((todo) =>
-        todo.id === action.payload.id ? { ...todo, text: action.payload.text, edit: false } : todo
+        todo.id === action.payload.id
+          ? { ...todo, text: action.payload.text, edit: false }
+          : todo
       );
     },
     completeTodo: (state, action: PayloadAction<number>) => {
       state.todos = state.todos.map((todo) =>
-        todo.id === action.payload ? { ...todo, complete: !todo.complete } : todo
+        todo.id === action.payload
+          ? { ...todo, complete: !todo.complete }
+          : todo
       );
+    },
+    setTodo : (state, action: PayloadAction<todoPayload[]>) => {
+      state.todos = action.payload;
     },
   },
 });

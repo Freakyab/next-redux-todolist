@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Todo } from '@/redux/todoReducer';
 
 const useTodo = () => {
-    const todoDispatch = useSelector((state: RootState) => state.todo);
+    const todoDispatch = useSelector((state: RootState) => state.todos);
     const dispatch = useDispatch<AppDispatch>();
 
     const addTodo = (text: string) => {
@@ -31,12 +31,17 @@ const useTodo = () => {
         dispatch(Todo.completeTodo(id));
     }
 
+    const setTodo = (todos: { id: number; text: string; complete?: boolean }[]) => {
+        dispatch(Todo.setTodo(todos));
+    }
+
     return {
         todoDispatch,
         addTodo,
         removeTodo,
         editTodo,
         completeTodo,
+        setTodo,
     };
 }
 
