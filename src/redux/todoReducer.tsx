@@ -1,6 +1,8 @@
+//  Code for todoReducer
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export type  todoPayload = {
+// Type for todo payload
+export type todoPayload = {
   id: number;
   text: string;
   complete?: boolean;
@@ -8,9 +10,10 @@ export type  todoPayload = {
 const initialState: {
   todos: todoPayload[];
 } = {
-  todos:  [],
+  todos: [],
 };
 
+// Todo reducer
 const todoReducer = createSlice({
   name: "todo",
   initialState: initialState,
@@ -38,5 +41,6 @@ const todoReducer = createSlice({
   },
 });
 
+// Exporting todo actions
 export const Todo = todoReducer.actions;
 export default todoReducer.reducer;

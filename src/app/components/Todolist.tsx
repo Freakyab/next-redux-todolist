@@ -1,42 +1,47 @@
 "use client";
 import React, { useState } from "react";
-import {  motion } from "framer-motion";
-import useTodo from "@/redux/dispatch/useTodo";
+import { motion } from "framer-motion";
+import useTodo from "@/redux/dispatch/useTodo"; // Importing custom hook for managing todos
 import { IoMdAddCircle, IoIosRemove } from "react-icons/io";
 import { FaCircle, FaRegCheckCircle, FaMoon } from "react-icons/fa";
 import { RiEdit2Line } from "react-icons/ri";
 import { IoSunnyOutline } from "react-icons/io5";
 
 const TodoList = () => {
-  const { todoDispatch, addTodo, removeTodo, editTodo, completeTodo } =
-    useTodo();
-  const [newTodoText, setNewTodoText] = useState("");
-  const [darkMode, setDarkMode] = useState(false);
+  // Destructuring custom hook for todo management
+  const { todoDispatch, addTodo, removeTodo, editTodo, completeTodo } = useTodo();
+  const [newTodoText, setNewTodoText] = useState(""); // State for storing new todo text
+  const [darkMode, setDarkMode] = useState(false); // State for toggling dark mode
 
+  // Function to handle adding new todo
   const handleAddTodo = (e: React.FormEvent) => {
     e.preventDefault();
     if (newTodoText.trim() !== "") {
       addTodo(newTodoText);
-      setNewTodoText("");
+      setNewTodoText(""); // Clear input field after adding todo
     }
   };
 
+  // Function to handle removing todo
   const handleRemoveTodo = (id: number) => {
     removeTodo(id);
   };
 
+  // Function to handle editing todo
   const handleEditTodo = (id: number) => {
-    editTodo(id, newTodoText);
-    setNewTodoText(
+    editTodo(id, newTodoText); // Edit todo with new text
+    setNewTodoText( // Set input field value to the text of the todo being edited
       todoDispatch.todos.find((todo) => todo.id === id)?.text || ""
     );
-    removeTodo(id);
+    removeTodo(id); // Remove original todo after editing
   };
 
+  // Function to handle completing todo
   const handleCompleteTodo = (id: number) => {
     completeTodo(id);
   };
 
+  // Function to toggle dark mode
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
@@ -49,6 +54,7 @@ const TodoList = () => {
           : "bg-gradient-to-b from-pink-500 to-rose-500 text-gray-800"
       }`}
     >
+      {/* Header with title and dark mode toggle button */}
       <div className="flex items-center justify-center mt-10 gap-3">
         <h1 className="text-4xl font-bold uppercase">Todo List</h1>
         <motion.button
@@ -62,7 +68,9 @@ const TodoList = () => {
           )}
         </motion.button>
       </div>
+      {/* Todo input and list */}
       <div className="w-full md:w-2/3 lg:w-1/2 xl:w-1/3 mt-8 p-3">
+        {/* Form for adding new todo */}
         <div
           className={`rounded-md shadow-lg p-4 mt-8 ${
             darkMode ? "bg-gray-800" : "bg-white"
@@ -87,7 +95,9 @@ const TodoList = () => {
             />
           </form>
         </div>
+        {/* Todo list */}
         <div className="mt-8 w-full">
+          {/* Mapping through todos and rendering them */}
           {todoDispatch.todos.map((todo) => (
             <motion.div
               key={todo.id}
@@ -100,6 +110,7 @@ const TodoList = () => {
                 darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
               }`}
             >
+              {/* Button to toggle todo completion */}
               <button onClick={() => handleCompleteTodo(todo.id)}>
                 {todo.complete ? (
                   <FaRegCheckCircle className="text-green-500 text-2xl" />
@@ -107,7 +118,9 @@ const TodoList = () => {
                   <FaCircle className="text-pink-500 text-2xl" />
                 )}
               </button>
+              {/* Text of the todo */}
               <p className="flex-grow px-2">{todo.text}</p>
+              {/* Buttons for editing and removing todo */}
               <div className="flex items-center">
                 <button onClick={() => handleEditTodo(todo.id)}>
                   <RiEdit2Line className="text-blue-500 text-2xl" />
