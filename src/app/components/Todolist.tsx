@@ -43,16 +43,18 @@ const TodoList = () => {
 
   return (
     <div
-      className={`min-h-screen flex flex-col justify-center items-center ${
+      className={`min-h-screen flex flex-col justify-start md:justify-center items-center ${
         darkMode
           ? "bg-gray-900 text-white"
           : "bg-gradient-to-b from-pink-500 to-rose-500 text-gray-800"
-      }`}>
+      }`}
+    >
       <div className="flex items-center justify-center mt-10 gap-3">
         <h1 className="text-4xl font-bold uppercase">Todo List</h1>
         <motion.button
           onClick={toggleDarkMode}
-          animate={{ rotate: darkMode ? 180 : 0 }}>
+          animate={{ rotate: darkMode ? 180 : 0 }}
+        >
           {darkMode ? (
             <IoSunnyOutline className="text-2xl text-yellow-500" />
           ) : (
@@ -60,11 +62,12 @@ const TodoList = () => {
           )}
         </motion.button>
       </div>
-      <div className="w-1/2">
+      <div className="w-full md:w-2/3 lg:w-1/2 xl:w-1/3 mt-8 p-3">
         <div
           className={`rounded-md shadow-lg p-4 mt-8 ${
             darkMode ? "bg-gray-800" : "bg-white"
-          } w-full`}>
+          } w-full`}
+        >
           <form onSubmit={handleAddTodo} className="flex items-center">
             <motion.button type="submit" animate={{ rotate: 360 }}>
               <IoMdAddCircle
@@ -95,7 +98,8 @@ const TodoList = () => {
                 todo.complete ? "line-through" : ""
               } ${
                 darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
-              }`}>
+              }`}
+            >
               <button onClick={() => handleCompleteTodo(todo.id)}>
                 {todo.complete ? (
                   <FaRegCheckCircle className="text-green-500 text-2xl" />
@@ -111,7 +115,8 @@ const TodoList = () => {
                 <motion.button
                   onClick={() => handleRemoveTodo(todo.id)}
                   whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}>
+                  whileTap={{ scale: 0.9 }}
+                >
                   <IoIosRemove className="text-red-500 text-2xl" />
                 </motion.button>
               </div>
