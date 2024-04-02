@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { animate, motion } from "framer-motion";
+import {  motion } from "framer-motion";
 import useTodo from "@/redux/dispatch/useTodo";
 import { IoMdAddCircle, IoIosRemove } from "react-icons/io";
 import { FaCircle, FaRegCheckCircle, FaMoon } from "react-icons/fa";
