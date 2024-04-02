@@ -31,17 +31,12 @@ const useTodo = () => {
         dispatch(Todo.completeTodo(id));
     }
 
-    const setTodo = (todos: { id: number; text: string; complete?: boolean }[]) => {
-        dispatch(Todo.setTodo(todos));
-    }
-
     return {
         todoDispatch,
         addTodo,
         removeTodo,
         editTodo,
         completeTodo,
-        setTodo,
     };
 }
 

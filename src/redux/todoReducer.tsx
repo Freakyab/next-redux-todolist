@@ -35,9 +35,6 @@ const todoReducer = createSlice({
           : todo
       );
     },
-    setTodo : (state, action: PayloadAction<todoPayload[]>) => {
-      state.todos = action.payload;
-    },
   },
 });
 
